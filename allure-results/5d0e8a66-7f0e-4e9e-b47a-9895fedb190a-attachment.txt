@@ -1,0 +1,7 @@
+This will run before all tests
+Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBjN2JmMTQ4NzY3ZjFmMTIxNWQyY2EiLCJ1c2VyRW1haWwiOiJhbnNoaWthQGdtYWlsLmNvbSIsInVzZXJNb2JpbGUiOjk4NzY1NDMyMTAsImlhdCI6MTc4MTE2MjQ2NiwiZXhwIjoxODEyNzIwMDY2fQ.CbE6biKi5VtYmo5UNWrQGtBbw5RegUREr6XsgAdNx_c
+Order ID: 6a2a61e217ee3e78bad110ff
+Total rows: 7
+Row order id: 6a2a61e217ee3e78bad110ff
+Found the order id: 6a2a61e217ee3e78bad110ff
+6a2a61e217ee3e78bad110ff

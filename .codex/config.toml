@@ -1,0 +1,12 @@
+[mcp_servers.playwright]
+command = "npx"
+args = [
+  "-y",
+  "@playwright/mcp@latest",
+  "--codegen",
+  "typescript",
+  "--viewport-size",
+  "1280x720",
+  "--output-dir",
+  "test-results/mcp",
+]

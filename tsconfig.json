@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "features/**/*.ts",
+    "pageobjects/**/*.ts",
+    "utils/**/*.ts",
+    "tests/**/*.ts"
+  ]
+}

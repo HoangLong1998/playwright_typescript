@@ -1,0 +1,28 @@
+{
+  "name": "playwright-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test tests/NetWork1.spec.ts --headed",
+    "regression": "npx playwright test",
+    "API": "npx playwright test --grep @API",
+    "UI": "npx playwright test --grep @UI",
+    "Smoke": "npx playwright test --grep @Smoke"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1",
+    "allure-playwright": "^3.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^12.9.0",
+    "exceljs": "^4.4.0"
+  }
+}
