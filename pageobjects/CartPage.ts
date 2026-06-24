@@ -1,5 +1,7 @@
 import { test, expect, Locator, Page } from "@playwright/test";
 
+
+//Code for CartPage.ts
 class CartPage {
     page: Page;
     checkoutButton: Locator;
