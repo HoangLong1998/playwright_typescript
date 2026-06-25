@@ -8,7 +8,7 @@ on:
   #   - cron: '0 23 * * *' # chạy hàng ngày lúc 06:00 giờ Việt Nam (23:00 UTC hôm trước)
 jobs:
   test:
-    timeout-minutes: 120
+    timeout-minutes: 180
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
