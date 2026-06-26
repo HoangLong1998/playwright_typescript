@@ -5,6 +5,8 @@ import {test, expect, Locator} from '@playwright/test';
     addToCart: Locator;
 cart: Locator;
 ordersHistory: Locator;
+    minPriceFilter: Locator;
+    maxPriceFilter: Locator;
 
 
     constructor(page: any) {
@@ -13,7 +15,8 @@ ordersHistory: Locator;
         this.addToCart = page.locator("text=Add To Cart");
         this.cart = page.locator("[routerlink*='cart']");
         this.ordersHistory = page.locator("button[routerlink*='myorders']");
-
+        this.minPriceFilter = page.locator("input[name='minPrice']:not(#mobile-filter input)").first();
+        this.maxPriceFilter = page.locator("input[name='maxPrice']:not(#mobile-filter input)").first();
 
     }
     async searchAndAddProductToCart(productName: string) {
@@ -27,6 +30,17 @@ ordersHistory: Locator;
                 break;
             }
         }
+    }
+    async filterByPriceRange(minPrice: number, maxPrice: number) {
+        await this.page.waitForLoadState('networkidle');
+        await this.minPriceFilter.fill(minPrice.toString());
+        await this.maxPriceFilter.fill(maxPrice.toString());
+        await this.page.waitForLoadState('networkidle');
+    }
+    async selectAndAddFirstProduct() {
+        await this.page.waitForLoadState('networkidle');
+        await this.page.locator(".card-body").first().waitFor();
+        await this.page.locator(".card-body").first().getByRole("button", { name: "Add To Cart" }).click();
     }
     async goToCart() {
         await this.cart.click();

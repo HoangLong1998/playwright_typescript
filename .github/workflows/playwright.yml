@@ -27,21 +27,21 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-    - name: Send email notification
-      if: always()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 465
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
-        subject: "Playwright CI result: ${{ job.status }}"
-        body: |
-          Workflow: ${{ github.workflow }}
-          Repository: ${{ github.repository }}
-          Branch: ${{ github.ref }}
-          Commit: ${{ github.sha }}
-          Status: ${{ job.status }}
-          Run URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        to: ${{ secrets.EMAIL_TO }}
-        from: ${{ secrets.EMAIL_FROM }}
+    # - name: Send email notification
+    #   if: always()
+    #   uses: dawidd6/action-send-mail@v3
+    #   with:
+    #     server_address: smtp.gmail.com
+    #     server_port: 465
+    #     username: ${{ secrets.SMTP_USERNAME }}
+    #     password: ${{ secrets.SMTP_PASSWORD }}
+    #     subject: "Playwright CI result: ${{ job.status }}"
+    #     body: |
+    #       Workflow: ${{ github.workflow }}
+    #       Repository: ${{ github.repository }}
+    #       Branch: ${{ github.ref }}
+    #       Commit: ${{ github.sha }}
+    #       Status: ${{ job.status }}
+    #       Run URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    #     to: ${{ secrets.EMAIL_TO }}
+    #     from: ${{ secrets.EMAIL_FROM }}
