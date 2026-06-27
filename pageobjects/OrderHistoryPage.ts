@@ -22,14 +22,15 @@ class OrderHistoryPage {
             const rowOrderId = (await rows[i].locator("th").textContent())?.trim();
             if (rowOrderId === orderId) {
                 await rows[i].locator("button").first().click();
-                break;
+                return;
             }
         }
+
+        throw new Error(`Order ID ${orderId} was not found in order history.`);
     }
 
     async verifyOrderDetails(orderId: string) {
-        const orderDetails = (await this.page.locator(".col-text").textContent())?.trim();
-        expect(orderDetails).toContain(orderId);
+        await expect(this.page.locator(".col-text")).toContainText(orderId);
     }
 }
 export default OrderHistoryPage;

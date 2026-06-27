@@ -27,7 +27,7 @@ for(const data of LoginTestData) {
    await orderReviewPage.placeOrder();
    const orderConfirmation = await page.locator(".hero-primary").textContent();
    expect(orderConfirmation).toBe(" Thankyou for the order. ");
-   const orderId = await page.locator("label.ng-star-inserted").textContent();
+   const orderId = (await page.locator("label.ng-star-inserted").textContent())?.replace(/\|/g, "").trim();
    console.log(orderId);
    await dashboardPage.goToOrdersHistory();
    const orderHistoryPage = pageObjectManager.getOrderHistoryPage(); 
@@ -63,7 +63,7 @@ for(const data of LoginTestData) {
 
    const orderConfirmation = await page.locator(".hero-primary").textContent();
    expect(orderConfirmation).toBe(" Thankyou for the order. ");
-   const orderId = await page.locator("label.ng-star-inserted").textContent();
+   const orderId = (await page.locator("label.ng-star-inserted").textContent())?.replace(/\|/g, "").trim();
    console.log(orderId);
 
    await dashboardPage.goToOrdersHistory();
@@ -95,7 +95,7 @@ datatest('@Regression - Fixture Using', async ({ page , testData}) => {
    await page.getByText("Place Order ").click();
    const orderConfirmation = await page.getByText("Thankyou for the order.").textContent();
    expect(orderConfirmation).toBe(" Thankyou for the order. ");
-   const orderId = await page.locator("label.ng-star-inserted").textContent();
+   const orderId = (await page.locator("label.ng-star-inserted").textContent())?.replace(/\|/g, "").trim();
    console.log(orderId);
 })
 

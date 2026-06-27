@@ -39,7 +39,7 @@ test('@Regression - Full flow to create order in Client Page', async ({ page }) 
    await page.locator(".action__submit").click();
    const orderConfirmation = await page.locator(".hero-primary").textContent();
    expect(orderConfirmation).toBe(" Thankyou for the order. ");
-   const orderId = await page.locator("label.ng-star-inserted").textContent();
+   const orderId = (await page.locator("label.ng-star-inserted").textContent())?.replace(/\|/g, "").trim();
    console.log(orderId);
 
 
@@ -89,7 +89,7 @@ test('@Regression - Get By Locator', async ({ page }) => {
    await page.getByText("Place Order ").click();
    const orderConfirmation = await page.getByText("Thankyou for the order.").textContent();
    expect(orderConfirmation).toBe(" Thankyou for the order. ");
-   const orderId = await page.locator("label.ng-star-inserted").textContent();
+   const orderId = (await page.locator("label.ng-star-inserted").textContent())?.replace(/\|/g, "").trim();
    console.log(orderId);   
 })
 
