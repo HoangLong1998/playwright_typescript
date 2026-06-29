@@ -20,7 +20,7 @@ const config = defineConfig({
     timeout: 5000,
   },
  // reporter: 'html',
-  reporter: [["line"], ["allure-playwright"]],
+  reporter: [["line"], ["html", { outputFolder: "playwright-report", open: "never" }], ["allure-playwright"]],
 
   projects: [
     {
