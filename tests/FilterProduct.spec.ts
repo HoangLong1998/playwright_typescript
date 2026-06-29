@@ -1,10 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../pagefixtures/worker-auth-fixture';
 import PageObjectManager from '../pageobjects/PageObjectManager';
 import * as allure from 'allure-playwright';
 
 test('@Regression - Filter product by price range and place order', async ({ page }) => {
-    const email = "anshika@gmail.com";
-    const password = "Iamking@000";
     const minPrice = 11500;
     const maxPrice = 55000;
 
@@ -13,7 +11,6 @@ test('@Regression - Filter product by price range and place order', async ({ pag
     // Step 1: Login
     const loginPage = pageObjectManager.getLoginPage();
     await loginPage.goTo();
-    await loginPage.login(email, password);
 
     // Step 2: Filter products by price range
     const dashboardPage = pageObjectManager.getDashboardPage();

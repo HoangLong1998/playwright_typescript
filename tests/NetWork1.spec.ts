@@ -1,7 +1,8 @@
 import { test, expect, request } from '@playwright/test';
 import { APIutils } from '../utils/ApiUtils'
+import { apiTestUser } from '../test-data/users';
 
-const loginPayLoad = { userEmail: "anshika@gmail.com", userPassword: "Iamking@000" }
+const loginPayLoad = { userEmail: apiTestUser.username, userPassword: apiTestUser.password }
 const orderPayLoad = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] };
 
 let response: any = {};

@@ -1,15 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../pagefixtures/worker-auth-fixture';
 
 test.describe.configure({ mode: 'parallel' });
 test('@Regression - Full flow to create order in Client Page', async ({ page }) => {
    //js file- Login js, DashboardPage
-   const email = "anshika@gmail.com";
    const productName = 'ZARA COAT 3';
    const products = page.locator(".card-body");
    await page.goto("https://rahulshettyacademy.com/client");
-   await page.locator("#userEmail").fill(email);
-   await page.locator("#userPassword").fill("Iamking@000");
-   await page.locator("[value='Login']").click();
    await page.waitForLoadState('networkidle');
    //await page.locator(".card-body b").first().waitFor();
    const titles = await page.locator(".card-body b").allTextContents();
@@ -70,13 +66,9 @@ test('@Regression - Full flow to create order in Client Page', async ({ page }) 
 
 test('@Regression - Get By Locator', async ({ page }) => {
    //js file- Login js, DashboardPage
-   const email = "anshika@gmail.com";  
    const productName = 'ZARA COAT 3';
    const products = page.locator(".card-body");
    await page.goto("https://rahulshettyacademy.com/client");
-   await page.getByPlaceholder("email@example.com").fill(email);
-   await page.getByPlaceholder("enter your passsword").fill("Iamking@000");
-   await page.getByRole("button", { name: "Login" }).click();
    await page.waitForLoadState('networkidle');
    const titles = await page.locator(".card-body b").allTextContents();
    await page.locator(".card-body").filter({hasText: productName}).getByRole("button", { name: "Add To Cart" }).click();

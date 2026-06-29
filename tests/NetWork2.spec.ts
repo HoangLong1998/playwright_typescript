@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { apiTestUser } from '../test-data/users';
 
 // This file is used to test the network interception in playwright, Request sent from browser -> server, intercepting request > Change request url > Render data on front end
 test('@API - Intercept Network Requests', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/client");
-    await page.locator("#userEmail").fill("anshika@gmail.com");
-    await page.locator("#userPassword").fill("Iamking@000");
+    await page.locator("#userEmail").fill(apiTestUser.username);
+    await page.locator("#userPassword").fill(apiTestUser.password);
     await page.locator("[value='Login']").click();
     await page.waitForLoadState('networkidle');
     await page.locator(".card-body b").first().waitFor();
@@ -20,4 +21,3 @@ test('@API - Intercept Network Requests', async ({ page }) => {
     await expect(page.locator("p").last()).toHaveText("You are not authorize to view this order");
 
 })
-

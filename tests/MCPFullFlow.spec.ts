@@ -1,16 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../pagefixtures/worker-auth-fixture';
 
 test('@Regression - MCP full flow creates and verifies two orders', async ({ page }) => {
   test.setTimeout(60_000);
 
-  const email = 'anshika@gmail.com';
-  const password = 'Iamking@000';
   const productNames = ['ADIDAS ORIGINAL', 'ZARA COAT 3'];
 
   await page.goto('https://rahulshettyacademy.com/client');
-  await page.getByPlaceholder('email@example.com').fill(email);
-  await page.getByPlaceholder('enter your passsword').fill(password);
-  await page.getByRole('button', { name: 'Login' }).click();
   await page.waitForLoadState('networkidle');
 
   const cartButton = page.getByRole('listitem').getByRole('button', { name: /Cart/ });

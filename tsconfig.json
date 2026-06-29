@@ -6,12 +6,15 @@
     "rootDir": ".",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "types": ["node"],
     "strict": false,
     "skipLibCheck": true
   },
   "include": [
     "features/**/*.ts",
+    "pagefixtures/**/*.ts",
     "pageobjects/**/*.ts",
+    "test-data/**/*.ts",
     "utils/**/*.ts",
     "tests/**/*.ts"
   ]

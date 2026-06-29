@@ -1,21 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../pagefixtures/worker-auth-fixture';
 import PageObjectManager from '../pageobjects/PageObjectManager';
 import LoginTestData from '../LoginTestData.json';
-import {datatest} from '../pagefixtures/test-base';
 import * as allure from 'allure-playwright';
 
 
 //Use the test data from TestData.json to run the test with different sets of credentials and products
 for(const data of LoginTestData) {
-   test(`@Regression - Login test with ${data.username} and ${data.password}` + ` and product ${data.productName}`, async ({ page }) => {
+   test(`@Regression - Place order for product ${data.productName}`, async ({ page }) => {
    //js file- Login js, DashboardPage
-   const email = data.username;
    const productName = data.productName;
  //  const products = page.locator(".card-body");
    const pageObjectManager = new PageObjectManager(page);
    const loginPage = pageObjectManager.getLoginPage();
    await loginPage.goTo();
-   await loginPage.login(email, "Iamking@000");
    const dashboardPage = pageObjectManager.getDashboardPage();
    await dashboardPage.searchAndAddProductToCart(data.productName);
    await dashboardPage.goToCart();
@@ -37,9 +34,8 @@ for(const data of LoginTestData) {
 }
 
 
-   test('@Regression - Login test with  and place order ', async ({ page }) => {
+   test('@Regression - Place order with page object flow', async ({ page }) => {
        //js file- Login js, DashboardPage
-   const email = "anshika@gmail.com";
    const productName = "ZARA COAT 3";
    const products = page.locator(".card-body");
 
@@ -48,7 +44,6 @@ for(const data of LoginTestData) {
    
 
    await loginPage.goTo();
-   await loginPage.login(email, "Iamking@000");
 
    const dashboardPage = pageObjectManager.getDashboardPage();
    await dashboardPage.searchAndAddProductToCart(productName);
@@ -74,15 +69,11 @@ for(const data of LoginTestData) {
 
 
 
-datatest('@Regression - Fixture Using', async ({ page , testData}) => {
+test('@Regression - Fixture Using', async ({ page }) => {
    //js file- Login js, DashboardPage
-   const email = testData.username;
-   const productName = testData.productName;
+   const productName = 'iphone 13 pro';
    const products = page.locator(".card-body");
    await page.goto("https://rahulshettyacademy.com/client");
-   await page.getByPlaceholder("email@example.com").fill(email);
-   await page.getByPlaceholder("enter your passsword").fill(testData.password);
-   await page.getByRole("button", { name: "Login" }).click();
    await page.waitForLoadState('networkidle');
    const titles = await page.locator(".card-body b").allTextContents();
    await page.locator(".card-body").filter({ hasText: productName }).getByRole("button", { name: "Add To Cart" }).click();

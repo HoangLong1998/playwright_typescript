@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
+import { apiTestUser } from '../test-data/users';
 
 let webContext: any;
 test.beforeAll(async ({ browser }) => {
-    const email = "anshika@gmail.com";
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/client");
-    await page.getByPlaceholder("email@example.com").fill(email);
-    await page.getByPlaceholder("enter your passsword").fill("Iamking@000");
+    await page.getByPlaceholder("email@example.com").fill(apiTestUser.username);
+    await page.getByPlaceholder("enter your passsword").fill(apiTestUser.password);
     await page.getByRole("button", { name: "Login" }).click();
     await page.waitForLoadState('networkidle');
     //Save the session storage to a file, so that we can use it in other tests
@@ -81,7 +81,6 @@ test('@API - Full flow to create order in Client Page', async () => {
 
 test('@API - Get By Locator', async ({ }) => {
     //js file- Login js, DashboardPage
-    const email = "anshika@gmail.com";
     const productName = 'ZARA COAT 3';
     //Using the same session storage to create a new page, so that we don't have to login again in this test
     const page = await webContext.newPage();
