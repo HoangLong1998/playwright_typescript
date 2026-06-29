@@ -36,13 +36,17 @@ jobs:
         TEST_USER_5_EMAIL: ${{ secrets.TEST_USER_5_EMAIL }}
         TEST_USER_5_PASSWORD: ${{ secrets.TEST_USER_5_PASSWORD }}
       run: npx playwright test --grep @Regression --workers=$PLAYWRIGHT_WORKERS
+    - name: Generate Allure report
+      if: ${{ !cancelled() }}
+      run: npm run allure:generate
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: test-reports
         path: |
           playwright-report/
           allure-results/
+          allure-report/
         retention-days: 30
     - name: Send email notification
       if: always()
