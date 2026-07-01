@@ -1,5 +1,6 @@
 Feature: Login and Order Placement
 
+@Regression 
 Scenario Outline: User can add product to cart and place order successfully
 
   Given User login to the system successfully with username "<username>" and password "<password>"

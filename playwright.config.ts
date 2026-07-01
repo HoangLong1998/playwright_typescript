@@ -15,7 +15,7 @@ const config = defineConfig({
   testDir: './tests',
   timeout: 30 * 1000,
   retries: 2,
-  workers: 5,
+  workers: 2,
   expect: {
     timeout: 5000,
   },
@@ -30,7 +30,10 @@ const config = defineConfig({
         headless: true,
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',
-        viewport: { width: 1280, height: 720 },
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+        },
         video: 'retain-on-failure',
       
 

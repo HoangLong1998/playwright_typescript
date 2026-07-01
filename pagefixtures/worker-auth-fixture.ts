@@ -9,20 +9,24 @@ type WorkerFixtures = {
 };
 
 export const test = base.extend<{}, WorkerFixtures>({
-  storageState: ({ workerStorageState }, use) => use(workerStorageState),
+  storageState: async ({ workerStorageState }, use) => {
+    const storageStateFile = workerStorageState;
+
+    await use(storageStateFile);
+  },
 
   testUser: [
     async ({}, use) => {
       const workerId = test.info().parallelIndex;
-      const user = testUsers[workerId];
+      const userForCurrentWorker = testUsers[workerId];
 
-      if (!user) {
+      if (!userForCurrentWorker) {
         throw new Error(
           `No test user configured for worker ${workerId}. Add TEST_USER_${workerId}_EMAIL and TEST_USER_${workerId}_PASSWORD, or lower the worker count.`,
         );
       }
 
-      await use(user);
+      await use(userForCurrentWorker);
     },
     { scope: 'worker' },
   ],
@@ -31,26 +35,27 @@ export const test = base.extend<{}, WorkerFixtures>({
     async ({ browser, testUser }, use) => {
       const workerId = test.info().parallelIndex;
       const authDir = path.resolve(test.info().project.outputDir, '.auth');
-      const authFile = path.join(authDir, `worker-${workerId}.json`);
+      const storageStateFile = path.join(authDir, `worker-${workerId}.json`);
 
-      if (fs.existsSync(authFile)) {
-        await use(authFile);
+      if (fs.existsSync(storageStateFile)) {
+        await use(storageStateFile);
         return;
       }
 
       fs.mkdirSync(authDir, { recursive: true });
 
-      const page = await browser.newPage({ storageState: undefined });
-      await page.goto('https://rahulshettyacademy.com/client');
-      await page.locator('#userEmail').fill(testUser.username);
-      await page.locator('#userPassword').fill(testUser.password);
-      await page.locator("[value='Login']").click();
-      await page.waitForLoadState('networkidle');
-      await expect(page.locator('.card-body').first()).toBeVisible({ timeout: 15_000 });
+      const loginPage = await browser.newPage({ storageState: undefined });
+      await loginPage.goto('https://rahulshettyacademy.com/client');
+      await loginPage.locator('#userEmail').fill(testUser.username);
+      await loginPage.locator('#userPassword').fill(testUser.password);
+      await loginPage.locator("[value='Login']").click();
+      await loginPage.waitForLoadState('networkidle');
+      await expect(loginPage.locator('.card-body').first()).toBeVisible({ timeout: 15_000 });
 
-      await page.context().storageState({ path: authFile });
-      await page.close();
-      await use(authFile);
+      await loginPage.context().storageState({ path: storageStateFile });
+      await loginPage.close();
+
+      await use(storageStateFile);
     },
     { scope: 'worker' },
   ],
